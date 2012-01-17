@@ -1,0 +1,2 @@
+serviceClass: uk.co.brotherlogic.busthis.client.GreetingService
+path: 2A1C2436788A36C4A68AB46345306684.gwt.rpc
