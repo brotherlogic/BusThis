@@ -9,6 +9,7 @@
   <inherits name='com.google.gwt.user.theme.clean.Clean'/>
   <inherits name='com.google.gwt.maps.GoogleMaps' />
   <inherits name="com.google.code.gwt.geolocation.Html5Geolocation" />
+  <inherits name="com.google.gwt.http.HTTP" />
   <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
@@ -21,5 +22,8 @@
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
+  
+  <!--  Go go cross site -->
+  <add-linker name="xs"/>
 
 </module>
