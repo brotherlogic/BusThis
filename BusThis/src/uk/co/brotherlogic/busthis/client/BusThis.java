@@ -9,9 +9,10 @@ import com.google.code.gwt.geolocation.client.PositionCallback;
 import com.google.code.gwt.geolocation.client.PositionError;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.Maps;
-import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -84,17 +85,27 @@ public class BusThis implements EntryPoint
       map.setSize("100%", "100%");
 
       // Add some controls for the zoom level
-      map.addControl(new LargeMapControl());
+      // map.addControl(new LargeMapControl());
 
       // Zoom to the best level of detail
       map.setZoomLevel(18);
 
       List<Stop> bstops = stops.getClosestStops(cawkerCity.getLatitude(),
             cawkerCity.getLongitude(), 10);
-      for (Stop st : bstops)
+      for (final Stop st : bstops)
       {
          System.out.println("Adding " + st.getLat() + "," + st.getLon());
-         map.addOverlay(new Marker(LatLng.newInstance(st.getLat(), st.getLon())));
+         final Marker m = new Marker(LatLng.newInstance(st.getLat(), st.getLon()));
+         m.addMarkerClickHandler(new MarkerClickHandler()
+         {
+            @Override
+            public void onClick(MarkerClickEvent event)
+            {
+               map.getInfoWindow().open(m,
+                     new InfoWindowContent("<A HREF=\"blah\">" + st.id + "</A>"));
+            }
+         });
+         map.addOverlay(m);
       }
 
       final DockLayoutPanel dock = new DockLayoutPanel(Unit.PX);
